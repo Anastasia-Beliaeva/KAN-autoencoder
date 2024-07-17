@@ -17,8 +17,8 @@ df.drop('Unnamed: 0', axis=1, inplace=True)
 
 target_list = 'GGlevel' #['1TLILSCL_TLH6', '1TLILSCL_ILS1', '1TLILSCL_ILS11', '1TLILSCL_TLS6', '1TLILSCL_CLI1_1', '1TLILSCL_CLO1_2', '1TLILSCL_CLF5']
 features = ['1TLILSCL_log_introtime', '1TLILSCL_log_fulltime', '1TLILSCL_log_Desktop2_time', '1TLILSCL_log_Explorer3_time',
-            '1TLILSCL_log_Browser4_time', '1TLILSCL_log_Search5_time', '1TLILSCL_log_Zone5', '1TLILSCL_log_Web6_time',
-            '1TLILSCL_log_Zone6', '1TLILSCL_log_Download7_time', '1TLILSCL_log_Install8_time',
+            '1TLILSCL_log_Browser4_time', '1TLILSCL_log_Search5_time', '1TLILSCL_log_Web6_time',
+             '1TLILSCL_log_Download7_time', '1TLILSCL_log_Install8_time',
             '1TLILSCL_log_Install8_DT', '1TLILSCL_log_Install8_explorer', '1TLILSCL_log_tripplanner9_time',
             '1TLILSCL_log_training10_time', '1TLILSCL_log_task1_time', '1TLILSCL_log_task11_time', '1TLILSCL_log_task7_time']
 df = df[df != 'undefined']
