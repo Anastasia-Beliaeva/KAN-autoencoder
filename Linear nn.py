@@ -6,6 +6,7 @@ from sklearn.metrics import confusion_matrix
 import torch.nn.functional as F
 import pandas as pd
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 import pathlib
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -40,10 +41,10 @@ TEST_BATCH_SIZE = 32
 EPOCHS = 100
 LEARNING_RATE = 1e-05
 len_features = len(features)
-hidden1 = 256
+hidden1 = 64
 hidden2 = 128
-hidden3 = 64
-hidden4 = 16
+hidden3 = 72
+hidden4 = 24
 len_output = df[target_list].nunique()
 
 # create a dataset class
@@ -66,7 +67,7 @@ class PandasDataset(Dataset):
 
 # Use torch.nn.Module to create models
 class Linear(torch.nn.Module):
-    def __init__(self, len_features, hidden1, hidden2, len_output):
+    def __init__(self, len_features, hidden1, hidden2, hidden3, hidden4, len_output):
         super().__init__()
         self.linear1 = torch.nn.Linear(len_features, hidden1)
         self.linear2 = torch.nn.Linear(hidden1, hidden2)
@@ -85,6 +86,7 @@ class Linear(torch.nn.Module):
 
 torch.manual_seed(0)
 
+
 X_train, X_test = train_test_split(
     PandasDataset(df), test_size=0.33, random_state=0)
 
@@ -100,8 +102,8 @@ test_data_loader = torch.utils.data.DataLoader(X_test,
                                               num_workers=0
                                               )
 
-model = Linear(len_features, hidden1, hidden2, len_output).to(device)
-print(model.parameters)
+model = Linear(len_features, hidden1, hidden2, hidden3, hidden4, len_output).to(device)
+
 optimizer = torch.optim.Adam(params=model.parameters(), lr=LEARNING_RATE)
 
 def loss_fn(outputs, targets):
